@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import fs from 'fs/promises';
-import { Footballers } from '../models/footballers.js';
+import { Footballers } from '../models/footballers';
 import { ObjectEncodingOptions } from 'fs';
 
 const fileRoad = './api/db.json';
