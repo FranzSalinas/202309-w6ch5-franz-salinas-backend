@@ -13,7 +13,7 @@
     "api": "json-server --watch ./api/db.json"
   },
   "keywords": [],
-  "author": "Franz Salinas",
+  "author": "Fer Franz Salinas",
   "license": "ISC",
   "prettier": {
     "singleQuote": true
