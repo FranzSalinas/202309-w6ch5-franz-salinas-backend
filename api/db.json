@@ -1,0 +1,39 @@
+{
+  "footballers": [
+    {
+      "id": 1,
+      "name": "De Bruyne",
+      "team": "Manchester City",
+      "preferredFoot": "right",
+      "position": "Midfielder"
+    },
+    {
+      "id": 2,
+      "name": "Alexander Arnold",
+      "team": "Liverpool",
+      "preferredFoot": "right",
+      "position": "Defender"
+    },
+    {
+      "id": 3,
+      "name": "Ansu Fati",
+      "team": "Brighton",
+      "preferredFoot": "right",
+      "position": "Striker"
+    },
+    {
+      "id": 4,
+      "name": "Evan Ferguson",
+      "team": "Brighton",
+      "preferredFoot": "right",
+      "position": "Striker"
+    },
+    {
+      "name": "Defdasfasfsadsf Bruyne",
+      "team": "Manchefdasfsdster City",
+      "preferredFoot": "righfdasfdst",
+      "position": "Midfiedfasaflder",
+      "id": 5
+    }
+  ]
+}
