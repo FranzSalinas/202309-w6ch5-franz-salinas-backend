@@ -4,36 +4,101 @@
       "id": 1,
       "name": "De Bruyne",
       "team": "Manchester City",
-      "preferredFoot": "right",
-      "position": "Midfielder"
+      "preferredFoot": "Right",
+      "position": "Midfielder",
+      "image": "https://www.footyrenders.com/render/kevindebruyne-ucl-home-vs-realmadrid.png",
+      "nationality": "Belgian",
+      "age": 32
     },
     {
       "id": 2,
       "name": "Alexander Arnold",
       "team": "Liverpool",
-      "preferredFoot": "right",
-      "position": "Defender"
+      "preferredFoot": "Right",
+      "position": "Defender",
+      "image": "https://www.footyrenders.com/render/trent-alexander-arnold-58.png",
+      "nationality": "English",
+      "age": 25
     },
     {
       "id": 3,
       "name": "Ansu Fati",
       "team": "Brighton",
-      "preferredFoot": "right",
-      "position": "Striker"
+      "preferredFoot": "Right",
+      "position": "Striker",
+      "image": "https://resources.brightonandhovealbion.com/bhafc/players/620x670/p465607.png",
+      "nationality": "Spanish",
+      "age": 21
     },
     {
       "id": 4,
       "name": "Evan Ferguson",
       "team": "Brighton",
-      "preferredFoot": "right",
-      "position": "Striker"
+      "preferredFoot": "Right",
+      "position": "Striker",
+      "image": "https://www.footyrenders.com/render/evan-ferguson.png",
+      "nationality": "Irish",
+      "age": 21
     },
     {
-      "name": "Defdasfasfsadsf Bruyne",
-      "team": "Manchefdasfsdster City",
-      "preferredFoot": "righfdasfdst",
-      "position": "Midfiedfasaflder",
-      "id": 5
+      "id": 5,
+      "name": "Kaoru Mitoma",
+      "team": "Brighton",
+      "preferredFoot": "Right",
+      "position": "Striker",
+      "image": "https://www.footyrenders.com/render/kaoru-mitoma.png",
+      "nationality": "Japanese",
+      "age": "Japanese"
+    },
+    {
+      "id": 6,
+      "name": "Take Kubo",
+      "team": "Real Sociedad",
+      "preferredFoot": "Left",
+      "position": "Winger",
+      "image": "https://www.footyrenders.com/render/kaoru-mitoma.png",
+      "nationality": "Japanese",
+      "age": 22
+    },
+    {
+      "id": 7,
+      "name": "Jude Bellingham",
+      "team": "Real Madrid",
+      "preferredFoot": "Right",
+      "position": "Midfielder",
+      "image": "https://i.pinimg.com/564x/c9/28/e3/c928e39571ff1d801489892ab35f71dd.jpg",
+      "nationality": "English",
+      "age": 20
+    },
+    {
+      "id": 8,
+      "name": "Luka Modrić",
+      "team": "Real Madrid",
+      "preferredFoot": "Right",
+      "position": "Midfielder",
+      "image": "https://banner2.cleanpng.com/20180528/bti/kisspng-luka-modri-real-madrid-c-f-croatia-national-foo-luka-modric-5b0c0287846329.4380323115275137355423.jpg",
+      "nationality": "Croatian",
+      "age": 38
+    },
+    {
+      "id": 9,
+      "name": "Lionel Messi",
+      "team": "Inter Miami",
+      "preferredFoot": "Left",
+      "position": "Winger",
+      "image": "https://banner2.cleanpng.com/20180204/hlq/kisspng-lionel-messi-fc-barcelona-argentina-national-footb-lionel-messi-png-picture-5a772bf6634529.2951789315177594784066.jpg",
+      "nationality": "Argentinian",
+      "age": 36
+    },
+    {
+      "id": 10,
+      "name": "Andrés Iniesta",
+      "team": "Emirates Club",
+      "preferredFoot": "Right",
+      "position": "Midfielder",
+      "image": "https://www.footyrenders.com/render/Andres-Iniesta-FC-Barcelona-1.png",
+      "nationality": "Japanese",
+      "age": 39
     }
   ]
 }

@@ -4,4 +4,7 @@ export type Footballers = {
   team: string;
   position: string;
   preferredFoot: string;
+  image: string;
+  nationality: string;
+  age: number;
 };
