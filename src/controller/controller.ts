@@ -1,60 +1,102 @@
+/* eslint-disable no-negated-condition */
 import { Request, Response } from 'express';
+import { ObjectEncodingOptions } from 'fs';
 import fs from 'fs/promises';
 import { Footballers } from '../models/footballers';
-import { ObjectEncodingOptions } from 'fs';
 
 const fileRoad = './api/db.json';
 
 const options: ObjectEncodingOptions = {
   encoding: 'utf-8',
 };
-let footballersFinalData: Footballers[] = [];
-
-const footballersDataReader = async () => {
+const readFootballersData = async () => {
   try {
     const footballersData = (await fs.readFile(fileRoad, options)) as string;
-    footballersFinalData = JSON.parse(footballersData).footballers || [];
+    const footballersFinalData = JSON.parse(footballersData)
+      .footballers as Footballers[];
+    return footballersFinalData;
   } catch (error) {
-    console.log('Ocurrio un error en la lectura del db.json', error);
+    console.log('Ocurrió un error en la lectura del db.json', error);
+    throw new Error('Error al obtener datos');
   }
 };
 
-footballersDataReader();
-
-export const getAll = (_req: Request, res: Response) => {
-  res.json(footballersFinalData);
+const writeFootballersData = async (data: Footballers[]) => {
+  try {
+    await fs.writeFile(
+      fileRoad,
+      JSON.stringify({ footballers: data }),
+      options
+    );
+  } catch (error) {
+    console.log('Ocurrió un error al escribir en db.json', error);
+    throw new Error('Error al escribir datos');
+  }
 };
 
-export const getById = (req: Request, res: Response) => {
-  const result = footballersFinalData.find(
-    (item) => item.id === Number(req.params.id)
-  );
-  res.json(result);
+export const getAll = async (_req: Request, res: Response) => {
+  try {
+    const data = await readFootballersData();
+    res.json(data);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-export const search = (_req: Request, _res: Response) => {};
-
-export const create = (req: Request, res: Response) => {
-  const result = { ...req.body, id: footballersFinalData.length + 1 };
-  footballersFinalData.push(result);
-  res.json(result);
+export const getById = async (req: Request, res: Response) => {
+  try {
+    const data = await readFootballersData();
+    const result = data.find((item) => item.id === Number(req.params.id));
+    if (result) {
+      res.json(result);
+    } else {
+      res.status(404).json({ message: 'Footballer not found' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-export const update = (req: Request, res: Response) => {
-  let result = footballersFinalData.find(
-    (item) => Number(item.id) === Number(req.params.id)
-  );
-  result = { ...result, ...req.body };
-  footballersFinalData[
-    footballersFinalData.findIndex((item) => item.id === Number(req.params.id))
-  ] = result!;
-  res.json(result);
+export const create = async (req: Request, res: Response) => {
+  try {
+    const data = await readFootballersData();
+    const result = { ...req.body, id: data.length + 1 };
+    data.push(result);
+    await writeFootballersData(data);
+    res.json(result);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
-export const remove = (req: Request, res: Response) => {
-  footballersFinalData.splice(
-    footballersFinalData.findIndex((item) => item.id === Number(req.params.id)),
-    1
-  );
-  res.json({});
+export const update = async (req: Request, res: Response) => {
+  try {
+    const data = await readFootballersData();
+    const index = data.findIndex((item) => item.id === Number(req.params.id));
+    if (index !== -1) {
+      data[index] = { ...data[index], ...req.body };
+      await writeFootballersData(data);
+      res.json(data[index]);
+    } else {
+      res.status(404).json({ message: 'Footballer not found' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const remove = async (req: Request, res: Response) => {
+  try {
+    const data = await readFootballersData();
+    const index = data.findIndex((item) => item.id === Number(req.params.id));
+    if (index !== -1) {
+      data.splice(index, 1);
+      await writeFootballersData(data);
+      res.json({});
+    } else {
+      res.status(404).json({ message: 'Footballer not found' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 };
