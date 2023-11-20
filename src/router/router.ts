@@ -1,17 +1,18 @@
 import { Router as createRouter } from 'express';
-import {
-  create,
-  getAll,
-  getById,
-  remove,
-  update,
-} from '../controller/controller.js';
+
+import { FootballerController } from '../controller/controller.js';
+import createDebug from 'debug';
+
+const debug = createDebug('w7E:footballers:router');
 
 export const Router = createRouter();
+debug('Starting');
 
-Router.get('/', getAll);
+const controller = new FootballerController();
 
-Router.get('/:id', getById);
-Router.post('/', create);
-Router.patch('/:id', update);
-Router.delete('/:id', remove);
+Router.get('/', controller.getAll.bind(controller));
+
+Router.get('/:id', controller.getById.bind(controller));
+Router.post('/', controller.create.bind(controller));
+Router.patch('/:id', controller.update.bind(controller));
+Router.delete('/:id', controller.delete.bind(controller));
