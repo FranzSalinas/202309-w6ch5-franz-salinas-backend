@@ -1,6 +1,6 @@
 /* eslint-disable no-negated-condition */
 import { Request, Response } from 'express';
-import { FootballersFileRepo } from '../repo/footballers.file.repo';
+import { FootballersFileRepo } from '../repo/footballers.file.repo.js';
 import createDebug from 'debug';
 import { HttpError } from '../types/http.error';
 

@@ -1,17 +1,17 @@
-import { Footballers } from '../models/footballers';
+import { Footballers } from '../entities/footballers';
 import fs from 'fs/promises';
 import { Repository } from './repo';
 import { HttpError } from '../types/http.error.js';
 import createDebug from 'debug';
 
-const debug = createDebug('w7E:footballers:repo');
+const debug = createDebug('W7E:footballers:repo');
 
 export class FootballersFileRepo implements Repository<Footballers> {
   file: string;
   footballers: Footballers[];
   constructor() {
     debug('Instatiated');
-    this.file = './data/data.json';
+    this.file = './data/db.json';
     this.footballers = [];
     this.loadData();
   }
@@ -27,7 +27,7 @@ export class FootballersFileRepo implements Repository<Footballers> {
 
   async getById(id: string): Promise<Footballers> {
     const result = this.footballers.find((item) => item.id === id);
-    if (!result) throw new Error('Not Found');
+    if (!result) throw new HttpError(404, 'Not Found', 'GetById not possible');
     return result;
   }
 
@@ -55,7 +55,7 @@ export class FootballersFileRepo implements Repository<Footballers> {
     updatedItem: Partial<Footballers>
   ): Promise<Footballers> {
     let result = this.footballers.find((item) => item.id === id);
-    if (!result) throw new Error('Not Found');
+    if (!result) throw new HttpError(404, 'Not Found', 'Update not possible');
     result = { ...result, ...updatedItem } as Footballers;
     const newfootballers = this.footballers.map((item) =>
       item.id === id ? result : item

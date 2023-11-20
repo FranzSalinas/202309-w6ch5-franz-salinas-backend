@@ -3,7 +3,7 @@ import { Router as createRouter } from 'express';
 import { FootballerController } from '../controller/controller.js';
 import createDebug from 'debug';
 
-const debug = createDebug('w7E:footballers:router');
+const debug = createDebug('W7E:footballers:router');
 
 export const Router = createRouter();
 debug('Starting');
