@@ -1,0 +1,102 @@
+[
+  {
+    "id": "1",
+    "name": "Kevin De Bruyne",
+    "team": "Manchester City",
+    "preferredFoot": "Right",
+    "position": "Midfielder",
+    "image": "https://www.footyrenders.com/render/kevindebruyne-ucl-home-vs-realmadrid.png",
+    "nationality": "Belgian",
+    "age": 32
+  },
+  {
+    "id": "2",
+    "name": "Alexander Arnold",
+    "team": "Liverpool",
+    "preferredFoot": "Right",
+    "position": "Defender",
+    "image": "https://www.footyrenders.com/render/trent-alexander-arnold-58.png",
+    "nationality": "English",
+    "age": 25
+  },
+  {
+    "id": "3",
+    "name": "Ansu Fati",
+    "team": "Brighton",
+    "preferredFoot": "Right",
+    "position": "Striker",
+    "image": "https://resources.brightonandhovealbion.com/bhafc/players/620x670/p465607.png",
+    "nationality": "Spanish",
+    "age": 21
+  },
+  {
+    "id": "4",
+    "name": "Evan Ferguson",
+    "team": "Brighton",
+    "preferredFoot": "Right",
+    "position": "Striker",
+    "image": "https://www.footyrenders.com/render/evan-ferguson.png",
+    "nationality": "Irish",
+    "age": 21
+  },
+  {
+    "id": "5",
+    "name": "Kaoru Mitoma",
+    "team": "Brighton",
+    "preferredFoot": "Right",
+    "position": "Striker",
+    "image": "https://media.futbolfantasy.com/thumb/400x400/v202311070224/uploads/images/jugadores/ficha/10298.png",
+    "nationality": "Japanese",
+    "age": "25"
+  },
+  {
+    "id": "6",
+    "name": "Take Kubo",
+    "team": "Real Sociedad",
+    "preferredFoot": "Left",
+    "position": "Winger",
+    "image": "https://www.footyrenders.com/render/takefusa-kubo-3.png",
+    "nationality": "Japanese",
+    "age": 22
+  },
+  {
+    "id": "7",
+    "name": "Jude Bellingham",
+    "team": "Real Madrid",
+    "preferredFoot": "Right",
+    "position": "Midfielder",
+    "image": "https://game-assets.fut.gg/2024/players/67361235.png",
+    "nationality": "English",
+    "age": 20
+  },
+  {
+    "id": "8",
+    "name": "Luka Modrić",
+    "team": "Real Madrid",
+    "preferredFoot": "Right",
+    "position": "Midfielder",
+    "image": "https://www.footyrenders.com/render/luka-modric-1.png",
+    "nationality": "Croatian",
+    "age": 38
+  },
+  {
+    "id": "9",
+    "name": "Lionel Messi",
+    "team": "Inter Miami",
+    "preferredFoot": "Left",
+    "position": "Winger",
+    "image": "https://static.messi.com/wp-content/uploads/2020/03/messi.png",
+    "nationality": "Argentinian",
+    "age": 36
+  },
+  {
+    "id": "10",
+    "name": "Andrés Iniesta",
+    "team": "Emirates Club",
+    "preferredFoot": "Right",
+    "position": "Midfielder",
+    "image": "https://www.footyrenders.com/render/Andres-Iniesta-FC-Barcelona-1.png",
+    "nationality": "Japanese",
+    "age": 39
+  }
+]

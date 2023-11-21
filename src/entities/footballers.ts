@@ -1,5 +1,5 @@
 export type Footballers = {
-  id: number;
+  id: string;
   name: string;
   team: string;
   position: string;
