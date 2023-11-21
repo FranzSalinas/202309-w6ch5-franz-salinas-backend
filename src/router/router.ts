@@ -2,13 +2,15 @@ import { Router as createRouter } from 'express';
 
 import { FootballerController } from '../controller/controller.js';
 import createDebug from 'debug';
+import { FootballersMongoRepo } from '../repo/footballers.mongo.repo.js';
 
 const debug = createDebug('W7E:footballers:router');
 
 export const Router = createRouter();
 debug('Starting');
 
-const controller = new FootballerController();
+const repo = new FootballersMongoRepo();
+const controller = new FootballerController(repo); // Inyección de dependenncias. Desacoplamos el controler de un repo concreto.
 
 Router.get('/', controller.getAll.bind(controller));
 

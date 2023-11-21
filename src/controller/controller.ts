@@ -1,53 +1,64 @@
-/* eslint-disable no-negated-condition */
-import { Request, Response } from 'express';
-import { FootballersFileRepo } from '../repo/footballers.file.repo.js';
+import { NextFunction, Request, Response } from 'express';
+
 import createDebug from 'debug';
-import { HttpError } from '../types/http.error';
+import { Repository } from '../repo/repo.js';
+import { Footballers } from '../entities/footballers';
 
 const debug = createDebug('w7E:footballers:controller');
 
 export class FootballerController {
-  repo: FootballersFileRepo;
-  constructor() {
+  // eslint-disable-next-line no-unused-vars
+  constructor(private repo: Repository<Footballers>) {
+    // Inyección de dependenncias. Desacoplamos el controler de un repo concreto.
     debug('Instatiated');
-    this.repo = new FootballersFileRepo();
   }
 
-  async getAll(_req: Request, res: Response) {
-    const result = await this.repo.getAll();
-    res.json(result);
+  async getAll(_req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.repo.getAll(); // No se pone un res.status(200) porque el sistema por defecto nos da ese mensaje.
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  search = async (_req: Request, _res: Response) => {};
-
-  async getById(req: Request, res: Response) {
-    const result = await this.repo.getById(req.params.id);
-    res.json(result);
+  async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.repo.getById(req.params.id);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async create(req: Request, res: Response) {
-    const result = await this.repo.create(req.body);
-    res.status(201);
-    res.statusMessage = 'Created';
-    res.json(result);
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.repo.create(req.body);
+      res.status(201);
+      res.statusMessage = 'Created';
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async update(req: Request, res: Response) {
-    const result = await this.repo.update(req.params.id, req.body);
-    res.json(result);
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.repo.update(req.params.id, req.body);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async delete(req: Request, res: Response) {
+  async delete(req: Request, res: Response, next: NextFunction) {
     try {
       await this.repo.delete(req.params.id);
       res.status(204);
       res.statusMessage = 'No Content';
       res.json({});
     } catch (error) {
-      res.status((error as HttpError).status);
-      res.statusMessage = (error as HttpError).statusMessage;
-      res.json({});
-      console.log((error as HttpError).message);
+      next(error);
     }
   }
 }
