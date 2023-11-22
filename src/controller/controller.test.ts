@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { FootballerController } from './controller';
-import { FootballersMongoRepo } from '../repo/footballers.mongo.repo';
+import { FootballerController } from './footballers.controller';
+import { FootballersMongoRepo } from '../repo/footballers/FootballersMongoRepo';
 
 describe('Given FootballerController class', () => {
   let controller: FootballerController;

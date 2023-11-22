@@ -1,18 +1,13 @@
 import { Schema, model } from 'mongoose';
-import { Footballers } from '../entities/footballers';
+import { User } from '../../entities/user';
 
-const footballersSchema = new Schema<Footballers>({
-  name: {
+const userSchema = new Schema<User>({
+  userName: {
     type: String,
     required: true,
     unique: true,
   },
-
-  nationality: {
-    type: String,
-    required: true,
-  },
-  preferredFoot: {
+  password: {
     type: String,
     required: true,
   },
@@ -20,21 +15,25 @@ const footballersSchema = new Schema<Footballers>({
     type: Number,
     required: true,
   },
-  image: {
+
+  name: {
     type: String,
     required: true,
   },
-  team: {
+  surname: {
     type: String,
     required: true,
   },
-  position: {
-    type: String,
-    required: true,
-  },
+
+  footballers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Footballers',
+    },
+  ],
 });
 
-footballersSchema.set('toJSON', {
+userSchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
@@ -43,8 +42,4 @@ footballersSchema.set('toJSON', {
   },
 });
 
-export const FootballersModel = model(
-  'Footballer',
-  footballersSchema,
-  'footballers'
-);
+export const UserModel = model('User', userSchema, 'users');

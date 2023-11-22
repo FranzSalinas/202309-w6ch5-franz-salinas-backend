@@ -1,8 +1,8 @@
 import { Router as createRouter } from 'express';
 
-import { FootballerController } from '../controller/controller.js';
+import { FootballerController } from '../controller/footballers.controller.js';
 import createDebug from 'debug';
-import { FootballersMongoRepo } from '../repo/footballers.mongo.repo.js';
+import { FootballersMongoRepo } from '../repo/footballers/FootballersMongoRepo.js';
 
 const debug = createDebug('W7E:footballers:router');
 

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 
 import createDebug from 'debug';
 import { Repository } from '../repo/repo.js';
-import { Footballers } from '../entities/footballers';
+import { Footballers } from '../entities/footballers.js';
 
 const debug = createDebug('w7E:footballers:controller');
 
