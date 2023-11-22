@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { Footballers } from '../../entities/footballers';
+import { Footballers } from '../../entities/footballers.js';
 
 const footballersSchema = new Schema<Footballers>({
   name: {

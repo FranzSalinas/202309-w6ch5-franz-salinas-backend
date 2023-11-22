@@ -6,7 +6,7 @@ export abstract class Auth {
     return hash(value, saltRound);
   }
 
-  static compare(value: string, hash: string) {
+  static compare(value: string, hash: string): Promise<boolean> {
     return compare(value, hash);
   }
 }

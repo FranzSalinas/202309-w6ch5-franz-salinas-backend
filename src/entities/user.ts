@@ -1,4 +1,4 @@
-import { Footballers } from './footballers';
+import { Footballers } from './footballers.js';
 
 export type LoginUser = {
   userName: string;

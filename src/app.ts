@@ -1,8 +1,10 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import { Router } from './router/router.js';
+import { footballersRouter } from './router/footballers.router.js';
 import createDebug from 'debug';
+import { userRouter } from './router/user.router.js';
+import { errorMiddleware } from './middleware/error.middleware.js';
 
 const debug = createDebug('w7E:footballers:app');
 
@@ -15,8 +17,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.static('public'));
 
-app.use('/footballers', Router);
+app.use('/footballers', footballersRouter);
+app.use('/users', userRouter);
 
-app.use((_error: Error, _req: Request, _res: Response, _next: NextFunction) => {
-  debug('Middleware Erros');
-});
+app.use(errorMiddleware);

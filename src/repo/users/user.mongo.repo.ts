@@ -1,22 +1,28 @@
 import createDebug from 'debug';
 import { Repository } from '../repo';
-import { LoginUser, User } from '../../entities/user';
-import { UserModel } from './user.mongo.model';
-import { HttpError } from '../../types/http.error';
+import { LoginUser, User } from '../../entities/user.js';
+import { UserModel } from './user.mongo.model.js';
+import { HttpError } from '../../types/http.error.js';
 import { Auth } from '../../services/auth.js';
 
 const debug = createDebug('W7E:users:mongo:repo');
 
 export class UserMongoRepo implements Repository<User> {
   constructor() {
-    debug('');
+    debug('Instantiated');
   }
 
-  async login(LoginUser: LoginUser): Promise<User> {
+  async create(newItem: Omit<User, 'id'>): Promise<User> {
+    newItem.password = await Auth.hash(newItem.password);
+    const result: User = await UserModel.create(newItem);
+    return result;
+  }
+
+  async login(loginUser: LoginUser): Promise<User> {
     const result = await UserModel.findOne({
-      userName: LoginUser.userName,
+      userName: loginUser.userName,
     }).exec();
-    if (!result || !(await Auth.compare(LoginUser.password, result.password)))
+    if (!result || !(await Auth.compare(loginUser.password, result.password)))
       throw new HttpError(401, 'Unauthorized');
     return result;
   }
@@ -32,12 +38,7 @@ export class UserMongoRepo implements Repository<User> {
     return result;
   }
 
-  async create(newItem: Omit<User, 'id'>): Promise<User> {
-    const result: User = await UserModel.create(newItem);
-    return result;
-  }
-
-  async update(_id: User, _updatedItem: User): Promise<User> {
+  async update(id: string, updatedItem: Partial<User>): Promise<User> {
     const result = await UserModel.findByIdAndUpdate(id, updatedItem, {
       new: true,
     }).exec();
@@ -45,7 +46,7 @@ export class UserMongoRepo implements Repository<User> {
     return result;
   }
 
-  delete(_id: User): Promise<void> {
+  delete(_id: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
 }

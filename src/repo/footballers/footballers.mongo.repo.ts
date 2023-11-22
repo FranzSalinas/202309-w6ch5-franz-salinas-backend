@@ -1,9 +1,9 @@
-import { Footballers } from '../../entities/footballers';
+import { Footballers } from '../../entities/footballers.js';
 import { Repository } from '../repo';
 import { HttpError } from '../../types/http.error.js';
 import createDebug from 'debug';
 import { FootballersModel } from './footballers.mongo.model.js';
-import { UserMongoRepo } from '../users/user.mongo.repo';
+import { UserMongoRepo } from '../users/user.mongo.repo.js';
 
 const debug = createDebug('W7E:footballers:mongo:repo');
 
@@ -32,10 +32,13 @@ export class FootballersMongoRepo implements Repository<Footballers> {
   // Adaptar este con el private save (sustituirlo por el fs.writefile)
 
   async create(newItem: Omit<Footballers, 'id'>): Promise<Footballers> {
+    debug('create debuger');
     const userID = newItem.autor.id;
+    debug(newItem.autor.id);
     newItem.autor = await this.repoUser.getById(userID);
     const result: Footballers = await FootballersModel.create(newItem);
-    newItem.autor.footballers.push(result);
+
+    newItem.autor.footballers.push(result.id as unknown as Footballers);
     await this.repoUser.update(userID, newItem.autor);
 
     return result;
