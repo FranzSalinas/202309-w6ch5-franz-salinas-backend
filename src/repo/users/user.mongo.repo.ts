@@ -1,5 +1,5 @@
 import createDebug from 'debug';
-import { Repository } from '../repo';
+import { Repository } from '../repo.js';
 import { LoginUser, User } from '../../entities/user.js';
 import { UserModel } from './user.mongo.model.js';
 import { HttpError } from '../../types/http.error.js';
@@ -33,6 +33,7 @@ export class UserMongoRepo implements Repository<User> {
   }
 
   async getById(id: string): Promise<User> {
+    debug(id, 'id value in getById in userMongoRepo');
     const result = await UserModel.findById(id).exec();
     if (!result) throw new HttpError(404, 'Not Found', 'GetById not possible');
     return result;

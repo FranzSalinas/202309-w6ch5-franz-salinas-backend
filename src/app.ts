@@ -6,7 +6,7 @@ import createDebug from 'debug';
 import { userRouter } from './router/user.router.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
 
-const debug = createDebug('w7E:footballers:app');
+const debug = createDebug('W7E:footballers:app');
 
 export const app = express();
 debug('Starting');

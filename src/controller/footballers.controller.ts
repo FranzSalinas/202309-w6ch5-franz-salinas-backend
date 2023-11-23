@@ -4,7 +4,7 @@ import createDebug from 'debug';
 import { Repository } from '../repo/repo.js';
 import { Footballers } from '../entities/footballers.js';
 
-const debug = createDebug('w7E:footballers:controller');
+const debug = createDebug('W7E:footballers:controller');
 
 export class FootballerController {
   // eslint-disable-next-line no-unused-vars
@@ -33,6 +33,9 @@ export class FootballerController {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
+      req.body.autor = { id: req.body.userId };
+      debug('BODY CONTROLER JODER', req.body);
+      debug('BODY Autor', req.body.autor);
       const result = await this.repo.create(req.body);
       debug(result, 'result in the create of controller footballer');
       res.status(201);
