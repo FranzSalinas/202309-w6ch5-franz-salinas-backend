@@ -1,3 +1,5 @@
+import { User } from './user.js';
+
 export type Footballers = {
   id: string;
   name: string;
@@ -7,4 +9,5 @@ export type Footballers = {
   image: string;
   nationality: string;
   age: number;
+  autor: User;
 };
