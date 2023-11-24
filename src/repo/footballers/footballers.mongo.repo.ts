@@ -1,5 +1,5 @@
 import { Footballers } from '../../entities/footballers.js';
-import { Repository } from '../repo';
+import { Repository } from '../repo.js';
 import { HttpError } from '../../types/http.error.js';
 import createDebug from 'debug';
 import { FootballersModel } from './footballers.mongo.model.js';
@@ -22,9 +22,11 @@ export class FootballersMongoRepo implements Repository<Footballers> {
   }
 
   async getById(id: string): Promise<Footballers> {
+    debug(id, 'id value in getById');
     const result = await FootballersModel.findById(id)
       .populate('autor', { footballers: 0 })
       .exec();
+    debug('get by id result', result);
     if (!result) throw new HttpError(404, 'Not Found', 'GetById not possible');
     return result;
   }
@@ -32,14 +34,16 @@ export class FootballersMongoRepo implements Repository<Footballers> {
   // Adaptar este con el private save (sustituirlo por el fs.writefile)
 
   async create(newItem: Omit<Footballers, 'id'>): Promise<Footballers> {
-    debug('create debuger');
     const userID = newItem.autor.id;
-    debug(newItem.autor.id);
-    newItem.autor = await this.repoUser.getById(userID);
-    const result: Footballers = await FootballersModel.create(newItem);
+    debug('userID value', newItem);
 
-    newItem.autor.footballers.push(result.id as unknown as Footballers);
-    await this.repoUser.update(userID, newItem.autor);
+    const user = await this.repoUser.getById(userID);
+    const result: Footballers = await FootballersModel.create({
+      ...newItem,
+      autor: userID,
+    });
+    user.footballers.push(result);
+    await this.repoUser.update(userID, user);
 
     return result;
   }
