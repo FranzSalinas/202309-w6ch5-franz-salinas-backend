@@ -4,7 +4,7 @@ import 'dotenv/config';
 import { User } from '../entities/user.js';
 import { HttpError } from '../types/http.error.js';
 
-type TokenPayload = {
+export type TokenPayload = {
   id: User['id'];
   userName: string;
 } & jwt.JwtPayload;

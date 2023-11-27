@@ -2,19 +2,35 @@ import createDebug from 'debug';
 import { NextFunction, Request, Response } from 'express';
 import { UserMongoRepo } from '../repo/users/user.mongo.repo.js';
 import { Auth } from '../services/auth.js';
+import { Controller } from './controller.js';
+import { User } from '../entities/user.js';
 
 const debug = createDebug('w7E:user:controller');
 
-export class UserController {
+export class UserController extends Controller<User> {
   // eslint-disable-next-line no-unused-vars
-  constructor(private repo: UserMongoRepo) {
+  constructor(protected repo: UserMongoRepo) {
+    super(repo);
     // Inyección de dependenncias. Desacoplamos el controler de un repo concreto.
     debug('Instatiated');
   }
 
+  async loginWithToken(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = this.repo.getById(req.body.userId);
+      res.json(result);
+      res.status(202);
+      res.statusMessage = 'Accepted';
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await this.repo.login(req.body);
+      const result = req.body.userId
+        ? await this.repo.getById(req.body.userId)
+        : await this.repo.login(req.body);
       const data = {
         user: result,
         token: Auth.signJWT({ id: result.id, userName: result.userName }),
@@ -23,26 +39,6 @@ export class UserController {
       res.status(202);
       res.statusMessage = 'Accepted';
       res.json(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getAll(_rep: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await this.repo.getAll();
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async create(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await this.repo.create(req.body);
-      res.status(201);
-      res.statusMessage = 'Created';
-      res.json(result);
     } catch (error) {
       next(error);
     }
