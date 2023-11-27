@@ -20,6 +20,14 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
+
+  avatar: {
+    publicId: String,
+    size: Number,
+    format: String,
+    url: String,
+  },
+
   surname: {
     type: String,
     required: true,
