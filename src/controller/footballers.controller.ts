@@ -3,64 +3,23 @@ import { NextFunction, Request, Response } from 'express';
 import createDebug from 'debug';
 import { Repository } from '../repo/repo.js';
 import { Footballers } from '../entities/footballers.js';
+import { Controller } from './controller.js';
 
 const debug = createDebug('W7E:footballers:controller');
 
-export class FootballerController {
+export class FootballerController extends Controller<Footballers> {
   // eslint-disable-next-line no-unused-vars
-  constructor(private repo: Repository<Footballers>) {
+  constructor(protected repo: Repository<Footballers>) {
+    super(repo);
+
     // Inyección de dependenncias. Desacoplamos el controler de un repo concreto.
     debug('Instatiated');
-  }
-
-  async getAll(_req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await this.repo.getAll(); // No se pone un res.status(200) porque el sistema por defecto nos da ese mensaje.
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getById(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await this.repo.getById(req.params.id);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
   }
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
       req.body.autor = { id: req.body.userId };
-      debug('BODY CONTROLER JODER', req.body);
-      debug('BODY Autor', req.body.autor);
-      const result = await this.repo.create(req.body);
-      debug(result, 'result in the create of controller footballer');
-      res.status(201);
-      res.statusMessage = 'Created';
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async update(req: Request, res: Response, next: NextFunction) {
-    try {
-      const result = await this.repo.update(req.params.id, req.body);
-      res.json(result);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async delete(req: Request, res: Response, next: NextFunction) {
-    try {
-      await this.repo.delete(req.params.id);
-      res.status(204);
-      res.statusMessage = 'No Content';
-      res.json({});
+      super.create(req, res, next);
     } catch (error) {
       next(error);
     }
