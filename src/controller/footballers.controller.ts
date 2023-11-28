@@ -8,7 +8,6 @@ import { Controller } from './controller.js';
 const debug = createDebug('W7E:footballers:controller');
 
 export class FootballerController extends Controller<Footballers> {
-  // eslint-disable-next-line no-unused-vars
   constructor(protected repo: Repository<Footballers>) {
     super(repo);
 

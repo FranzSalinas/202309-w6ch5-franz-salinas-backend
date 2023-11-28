@@ -26,6 +26,8 @@ const footballersSchema = new Schema<Footballers>({
     size: Number,
     format: String,
     url: String,
+    height: Number,
+    width: Number,
   },
   team: {
     type: String,

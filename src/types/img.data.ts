@@ -3,6 +3,6 @@ export type ImgData = {
   format: string;
   size: number;
   url: string;
-  /* Tem width: number;
-  height: number; */
+  width: number;
+  height: number;
 };

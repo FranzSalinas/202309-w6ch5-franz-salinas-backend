@@ -24,6 +24,8 @@ const userSchema = new Schema<User>({
   avatar: {
     publicId: String,
     size: Number,
+    height: Number,
+    width: Number,
     format: String,
     url: String,
   },

@@ -1,9 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { Repository } from '../repo/repo';
+import { Repository } from '../repo/repo.js';
+import { MediaFiles } from '../services/media.files.js';
 
 export abstract class Controller<T extends { id: unknown }> {
-  // eslint-disable-next-line no-unused-vars, no-useless-constructor
-  constructor(protected repo: Repository<T>) {}
+  cloudinaryService: MediaFiles;
+  // eslint-disable-next-line no-unused-vars
+  constructor(protected repo: Repository<T>) {
+    this.cloudinaryService = new MediaFiles();
+  }
 
   async getAll(_req: Request, res: Response, next: NextFunction) {
     try {
@@ -25,20 +29,6 @@ export abstract class Controller<T extends { id: unknown }> {
 
   async create(req: Request, res: Response, next: NextFunction) {
     try {
-      req.body.avatar = {
-        publicId: req.file?.fieldname,
-        format: req.file?.mimetype,
-        url: req.file?.path,
-        size: req.file?.size,
-      };
-
-      req.body.imageFootballer = {
-        publicId: req.file?.fieldname,
-        format: req.file?.mimetype,
-        url: req.file?.path,
-        size: req.file?.size,
-      };
-
       const result = await this.repo.create(req.body);
 
       res.status(201);
