@@ -1,9 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
-import { Repository } from '../repo/repo';
+import { Repository } from '../repo/repo.js';
+import { MediaFiles } from '../services/media.files.js';
 
 export abstract class Controller<T extends { id: unknown }> {
-  // eslint-disable-next-line no-unused-vars, no-useless-constructor
-  constructor(protected repo: Repository<T>) {}
+  cloudinaryService: MediaFiles;
+  // eslint-disable-next-line no-unused-vars
+  constructor(protected repo: Repository<T>) {
+    this.cloudinaryService = new MediaFiles();
+  }
 
   async getAll(_req: Request, res: Response, next: NextFunction) {
     try {
@@ -50,6 +54,18 @@ export abstract class Controller<T extends { id: unknown }> {
       res.status(204);
       res.statusMessage = 'No Content';
       res.json({});
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async search(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await this.repo.search({
+        key: Object.entries(req.query)[0][0] as keyof T,
+        value: Object.entries(req.query)[0][1],
+      });
+      res.json(result);
     } catch (error) {
       next(error);
     }

@@ -20,9 +20,14 @@ const footballersSchema = new Schema<Footballers>({
     type: Number,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
+
+  imageFootballer: {
+    publicId: String,
+    size: Number,
+    format: String,
+    url: String,
+    height: Number,
+    width: Number,
   },
   team: {
     type: String,

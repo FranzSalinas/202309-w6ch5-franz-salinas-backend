@@ -4,25 +4,30 @@ import { User } from '../../entities/user.js';
 const userSchema = new Schema<User>({
   userName: {
     type: String,
-    required: true,
     unique: true,
   },
   password: {
     type: String,
-    required: true,
   },
   age: {
     type: Number,
-    required: true,
   },
 
   name: {
     type: String,
-    required: true,
   },
+
+  avatar: {
+    publicId: String,
+    size: Number,
+    height: Number,
+    width: Number,
+    format: String,
+    url: String,
+  },
+
   surname: {
     type: String,
-    required: true,
   },
 
   footballers: [
@@ -42,4 +47,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export const UserModel = model('User', userSchema, 'users');
+export const UserModel = model<User>('User', userSchema, 'users');
