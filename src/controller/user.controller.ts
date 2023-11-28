@@ -5,11 +5,11 @@ import { Auth } from '../services/auth.js';
 import { Controller } from './controller.js';
 import { User } from '../entities/user.js';
 import { HttpError } from '../types/http.error.js';
+import { LoginResponse } from '../types/login.response.js';
 
 const debug = createDebug('w7E:user:controller');
 
 export class UserController extends Controller<User> {
-  // eslint-disable-next-line no-unused-vars
   constructor(protected repo: UserMongoRepo) {
     super(repo);
     // Inyección de dependenncias. Desacoplamos el controler de un repo concreto.
@@ -32,7 +32,7 @@ export class UserController extends Controller<User> {
       const result = req.body.userId
         ? await this.repo.getById(req.body.userId)
         : await this.repo.login(req.body);
-      const data = {
+      const data: LoginResponse = {
         user: result,
         token: Auth.signJWT({ id: result.id, userName: result.userName }),
       };
